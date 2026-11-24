@@ -1,0 +1,3359 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+<link rel="apple-touch-icon" href="TAZA.png">
+  
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
+
+<meta
+  name="theme-color"
+  content="#4E3629"
+>
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+>
+
+<meta
+  name="apple-mobile-web-app-title"
+  content="LUVAFE Inventario"
+>
+
+<link
+  rel="manifest"
+  href="manifest.webmanifest"
+>
+  
+
+<title>LUVAFE · Inventario</title>
+
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+  --bg: #F3EFE0;
+  --brown: #4E3629;
+  --terra: #A66E4E;
+  --card: #FFFFFF;
+
+  --line: #E8DED2;
+
+  --green: #2E7D5B;
+  --red: #B54A3A;
+
+  --gold: #C69C6D;
+
+  --ink: #241C18;
+
+}
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+
+  margin: 0;
+
+  background: var(--bg);
+
+  color: var(--ink);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+}
+
+
+.app {
+
+  max-width: 1180px;
+
+  margin: auto;
+
+  padding-bottom: 90px;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 10;
+
+  background:
+    rgba(243,239,224,.96);
+
+  backdrop-filter: blur(12px);
+
+  padding: 14px 16px;
+
+  border-bottom:
+    1px solid var(--line);
+
+}
+
+
+.brand {
+
+  font-weight: 900;
+
+  letter-spacing: .08em;
+
+  color: var(--brown);
+
+  font-size: 20px;
+
+}
+
+
+.sub {
+
+  font-size: 12px;
+
+  color: var(--terra);
+
+  margin-top: 2px;
+
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+nav {
+
+  display: flex;
+
+  gap: 7px;
+
+  overflow-x: auto;
+
+  padding: 10px 16px;
+
+  position: sticky;
+
+  top: 68px;
+
+  z-index: 9;
+
+  background: var(--bg);
+
+}
+
+
+nav button,
+.btn {
+
+  border:
+    1px solid var(--line);
+
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 10px 13px;
+
+  font-weight: 700;
+
+  color: var(--brown);
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+}
+
+
+nav button.active,
+.btn.primary {
+
+  background: var(--brown);
+
+  color: white;
+
+  border-color: var(--brown);
+
+}
+
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+main {
+
+  padding: 0 16px;
+
+}
+
+
+.tab {
+
+  display: none;
+
+}
+
+
+.tab.active {
+
+  display: block;
+
+}
+
+
+h1 {
+
+  font-size: 24px;
+
+  margin: 12px 0 5px;
+
+  color: var(--brown);
+
+}
+
+
+h2 {
+
+  font-size: 17px;
+
+  color: var(--brown);
+
+}
+
+
+.muted {
+
+  color: #77675E;
+
+  font-size: 13px;
+
+}
+
+
+/* =========================================================
+   TARJETAS
+========================================================= */
+
+.grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap: 12px;
+
+}
+
+
+.card {
+
+  background: var(--card);
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 18px;
+
+  padding: 16px;
+
+  box-shadow:
+    0 4px 14px #4e36290b;
+
+}
+
+
+.kpi .label {
+
+  font-size: 12px;
+
+  color: #77675E;
+
+}
+
+
+.kpi .value {
+
+  font-size: 26px;
+
+  font-weight: 900;
+
+  color: var(--brown);
+
+  margin-top: 5px;
+
+}
+
+
+.toolbar {
+
+  display: flex;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  margin: 12px 0;
+
+}
+
+
+.search {
+
+  flex: 1;
+
+  min-width: 180px;
+
+  padding: 11px 13px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 12px;
+
+  background: white;
+
+}
+
+
+/* =========================================================
+   TABLAS
+========================================================= */
+
+.tablewrap {
+
+  overflow: auto;
+
+  background: white;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 16px;
+
+}
+
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 850px;
+
+}
+
+
+th,
+td {
+
+  padding: 11px 10px;
+
+  border-bottom:
+    1px solid #eee;
+
+  text-align: left;
+
+  font-size: 13px;
+
+}
+
+
+th {
+
+  background: #FAF7F1;
+
+  color: var(--brown);
+
+  position: sticky;
+
+  top: 0;
+
+}
+
+
+input,
+select,
+textarea {
+
+  width: 100%;
+
+  padding: 10px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 10px;
+
+  background: white;
+
+  color: var(--ink);
+
+}
+
+
+input[type="number"] {
+
+  min-width: 80px;
+
+}
+
+
+.status {
+
+  font-weight: 800;
+
+}
+
+
+.buy {
+
+  color: var(--red);
+
+}
+
+
+.ok {
+
+  color: var(--green);
+
+}
+
+
+/* =========================================================
+   FORMULARIOS
+========================================================= */
+
+.formgrid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap: 10px;
+
+}
+
+
+.field label {
+
+  display: block;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  color: #77675E;
+
+  margin: 0 0 5px;
+
+}
+
+
+.field.wide {
+
+  grid-column: span 2;
+
+}
+
+
+/* =========================================================
+   AVISOS
+========================================================= */
+
+.alert {
+
+  padding: 13px;
+
+  border-radius: 14px;
+
+  background: #FFF4EF;
+
+  border:
+    1px solid #F0C8BD;
+
+  color: #8D382C;
+
+  margin: 12px 0;
+
+}
+
+
+.notice {
+
+  padding: 13px;
+
+  border-radius: 14px;
+
+  background: #F7F0E6;
+
+  border:
+    1px solid var(--line);
+
+  margin: 12px 0;
+
+}
+
+
+/* =========================================================
+   OTROS
+========================================================= */
+
+.row {
+
+  display: flex;
+
+  gap: 8px;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+
+}
+
+
+footer {
+
+  padding: 20px 16px;
+
+  color: #8B7B70;
+
+  font-size: 11px;
+
+  text-align: center;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:800px) {
+
+  .grid {
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+  .formgrid {
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+  .field.wide {
+
+    grid-column:
+      span 2;
+
+  }
+
+}
+
+
+@media(max-width:520px) {
+
+  .grid {
+
+    grid-template-columns:
+      1fr 1fr;
+
+  }
+
+  .kpi .value {
+
+    font-size: 21px;
+
+  }
+
+  .formgrid {
+
+    grid-template-columns:
+      1fr 1fr;
+
+  }
+
+}
+
+
+/* =========================================================
+   IMPRESIÓN
+========================================================= */
+
+@media print {
+
+  body {
+
+    background: white;
+
+  }
+
+  .top,
+  nav,
+  .no-print,
+  footer {
+
+    display: none !important;
+
+  }
+
+  .app {
+
+    max-width: none;
+
+    padding: 0;
+
+  }
+
+  .tab {
+
+    display: none !important;
+
+  }
+
+  .tab.print-active {
+
+    display: block !important;
+
+  }
+
+  main {
+
+    padding: 0;
+
+  }
+
+  .card {
+
+    box-shadow: none;
+
+    border: 0;
+
+  }
+
+  .tablewrap {
+
+    border: 0;
+
+  }
+
+  table {
+
+    min-width: 0;
+
+  }
+
+  th,
+  td {
+
+    font-size: 10px;
+
+    padding: 6px;
+
+  }
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<header class="top">
+
+  <div class="brand">
+    LUVAFE
+  </div>
+
+  <div class="sub">
+    CONTROL DE INVENTARIO· PRODUCTO EN PROCESO
+  </div>
+
+</header>
+
+
+<nav id="nav">
+
+  <button
+    data-tab="dashboard"
+    class="active"
+  >
+    Resumen
+  </button>
+
+  <button
+    data-tab="inventory"
+  >
+    Inventario
+  </button>
+
+  <button
+    data-tab="moves"
+  >
+    Movimientos
+  </button>
+
+  <button
+    data-tab="print"
+  >
+    Impresión
+  </button>
+
+  <button
+    data-tab="admin"
+  >
+    Administración
+  </button>
+
+</nav>
+
+
+<main>
+
+
+<!-- =====================================================
+     RESUMEN
+===================================================== -->
+
+<section
+  id="dashboard"
+  class="tab active"
+>
+
+<h1>
+  Resumen
+</h1>
+
+<p class="muted">
+  Control de existencias y compras.
+  Los datos se guardan en este dispositivo.
+</p>
+
+
+<div
+  id="kpis"
+  class="grid"
+></div>
+
+
+<div id="buyAlert"></div>
+
+
+<div class="card">
+
+  <div class="row">
+
+    <h2>
+      Compras sugeridas
+    </h2>
+
+    <button
+      class="btn"
+      onclick="go('inventory')"
+    >
+      Ver inventario
+    </button>
+
+  </div>
+
+  <div id="buyList"></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     INVENTARIO
+===================================================== -->
+
+<section
+  id="inventory"
+  class="tab"
+>
+
+<h1>
+  Inventario
+</h1>
+
+
+<div class="toolbar">
+
+  <input
+    id="invSearch"
+    class="search"
+    placeholder="Buscar materia prima..."
+    oninput="renderInventory()"
+  >
+
+  <button
+    class="btn primary"
+    onclick="newItem()"
+  >
+    + Nueva materia
+  </button>
+
+  <button
+    class="btn"
+    onclick="exportCSV()"
+  >
+    Exportar CSV
+  </button>
+
+</div>
+
+
+<div class="tablewrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Materia prima
+</th>
+
+<th>
+Unidad
+</th>
+
+<th>
+Inicial
+</th>
+
+<th>
+Entradas
+</th>
+
+<th>
+Salidas
+</th>
+
+<th>
+Actual
+</th>
+
+<th>
+Mínimo
+</th>
+
+<th>
+Estado
+</th>
+
+<th>
+Costo unit.
+</th>
+
+<th>
+Valor
+</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+
+<tbody
+  id="invBody"
+></tbody>
+
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MOVIMIENTOS
+===================================================== -->
+
+<section
+  id="moves"
+  class="tab"
+>
+
+<h1>
+  Registrar movimiento
+</h1>
+
+
+<div class="card">
+
+
+<div class="formgrid">
+
+
+<div class="field">
+
+<label>
+Fecha y hora
+</label>
+
+<input
+  id="mDate"
+  type="datetime-local"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Materia prima
+</label>
+
+<select
+  id="mItem"
+></select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Tipo
+</label>
+
+<select
+  id="mType"
+>
+
+<option value="entrada">
+Entrada / compra
+</option>
+
+<option value="salida">
+Salida / producción
+</option>
+
+<option value="ajuste">
+Ajuste
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Cantidad
+</label>
+
+<input
+  id="mQty"
+  type="number"
+  min="0"
+  step="0.01"
+  placeholder="0"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Costo unitario
+</label>
+
+<input
+  id="mCost"
+  type="number"
+  min="0"
+  step="0.01"
+  placeholder="Opcional"
+>
+
+</div>
+
+
+<div class="field wide">
+
+<label>
+Notas / proveedor / motivo
+</label>
+
+<input
+  id="mNote"
+  placeholder="Ej. compra semanal, merma, ajuste..."
+>
+
+</div>
+
+
+</div>
+
+
+<div class="toolbar">
+
+<button
+  class="btn primary"
+  onclick="addMove()"
+>
+Guardar movimiento
+</button>
+
+<button
+  class="btn"
+  onclick="clearMove()"
+>
+Limpiar
+</button>
+
+</div>
+
+
+</div>
+
+
+<h2>
+Historial
+</h2>
+
+
+<div class="tablewrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Fecha</th>
+<th>Materia</th>
+<th>Tipo</th>
+<th>Cantidad</th>
+<th>Costo</th>
+<th>Notas</th>
+<th></th>
+
+</tr>
+
+</thead>
+
+
+<tbody
+  id="movesBody"
+></tbody>
+
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     IMPRESIÓN
+===================================================== -->
+
+<section
+  id="print"
+  class="tab"
+>
+
+<h1 class="print-title">
+  Reporte de inventario · LUVAFE
+</h1>
+
+
+<div class="toolbar no-print">
+
+<button
+  class="btn primary"
+  onclick="window.print()"
+>
+🖨 Imprimir
+</button>
+
+
+<button
+  class="btn"
+  onclick="printMode('inventory')"
+>
+Inventario
+</button>
+
+
+<button
+  class="btn"
+  onclick="printMode('purchases')"
+>
+Lista de compras
+</button>
+
+
+<button
+  class="btn"
+  onclick="printMode('moves')"
+>
+Movimientos
+</button>
+
+</div>
+
+
+<div
+  id="printArea"
+></div>
+
+
+</section>
+
+
+<!-- =====================================================
+     ADMINISTRACIÓN
+===================================================== -->
+
+<section
+  id="admin"
+  class="tab"
+>
+
+<h1>
+Administración
+</h1>
+
+
+<div class="notice">
+
+<b>
+Regla importante:
+</b>
+
+Un movimiento debe representar una operación real.
+
+No uses "Entradas" y "Salidas"
+para corregir errores sin dejar una nota.
+
+Usa un <b>Ajuste</b> y explica el motivo.
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<h2>
+Respaldo
+</h2>
+
+<p class="muted">
+Guarda una copia completa de inventario y movimientos.
+</p>
+
+<button
+  class="btn primary"
+  onclick="backup()"
+>
+Descargar respaldo
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Restaurar
+</h2>
+
+<p class="muted">
+Importa un respaldo JSON generado por esta app.
+</p>
+
+<input
+  type="file"
+  id="restoreFile"
+  accept=".json"
+  onchange="restore(event)"
+>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Datos
+</h2>
+
+<p class="muted">
+Elimina todos los datos locales y vuelve al catálogo inicial.
+</p>
+
+<button
+  class="btn"
+  onclick="resetAll()"
+>
+Restablecer datos
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Instalación iPhone
+</h2>
+
+<p class="muted">
+
+En Safari:
+
+Compartir →
+Añadir a pantalla de inicio.
+
+Para instalación como PWA,
+el sitio debe estar publicado mediante HTTPS.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+<div
+  class="card"
+  style="margin-top:12px"
+>
+
+<h2>
+Controles administrativos incluidos
+</h2>
+
+<ul>
+
+<li>
+Stock mínimo y alerta de compra.
+</li>
+
+<li>
+Costo unitario y valor estimado del inventario.
+</li>
+
+<li>
+Historial fechado de entradas, salidas y ajustes.
+</li>
+
+<li>
+Notas para proveedor, merma, diferencias y otros motivos.
+</li>
+
+<li>
+Respaldo y restauración local.
+</li>
+
+<li>
+Exportación CSV para análisis en Excel.
+</li>
+
+<li>
+Reporte imprimible de inventario, compras y movimientos.
+</li>
+
+</ul>
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+LUVAFE · Control de inventario · Aplicación local
+
+</footer>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATOS INICIALES
+========================================================= */
+
+const BASE_ITEMS = [
+
+{
+name:"Aceite",
+unit:"pieza",
+initial:5,
+min:3,
+cost:27
+},
+
+{
+name:"Azucar",
+unit:"kg",
+initial:6,
+min:5,
+cost:22.5
+},
+
+{
+name:"Cajeta Bolsa",
+unit:"pieza",
+initial:3,
+min:5,
+cost:25
+},
+
+{
+name:"Cajeta Lata",
+unit:"pieza",
+initial:9,
+min:10,
+cost:35
+},
+
+{
+name:"Cerveza Bud Light",
+unit:"pieza",
+initial:12,
+min:20,
+cost:12
+},
+
+{
+name:"Elote en lata",
+unit:"pieza",
+initial:5,
+min:0,
+cost:16
+},
+
+{
+name:"Galletas Maria",
+unit:"pieza",
+initial:24,
+min:0,
+cost:14
+},
+
+{
+name:"Harina Blanca El Globo",
+unit:"kg",
+initial:14,
+min:12,
+cost:16
+},
+
+{
+name:"Harina Chocolate",
+unit:"pieza",
+initial:14,
+min:10,
+cost:50
+},
+
+{
+name:"Harina de Brownie",
+unit:"pieza",
+initial:3,
+min:5,
+cost:70
+},
+
+{
+name:"Leche Condensada La Lechera",
+unit:"pieza",
+initial:17,
+min:15,
+cost:26
+},
+
+{
+name:"Leche Evaporada Carnation",
+unit:"pieza",
+initial:16,
+min:15,
+cost:20
+},
+
+{
+name:"Limon",
+unit:"kg",
+initial:.5,
+min:0,
+cost:0
+},
+
+{
+name:"Manteca Crystal",
+unit:"pieza",
+initial:5.5,
+min:8,
+cost:54
+},
+
+{
+name:"Mantequilla",
+unit:"kg",
+initial:1,
+min:2,
+cost:0
+},
+
+{
+name:"Media Crema",
+unit:"pieza",
+initial:1,
+min:0,
+cost:0
+},
+
+{
+name:"Mermelada",
+unit:"pieza",
+initial:1,
+min:0,
+cost:0
+},
+
+{
+name:"Queso Crema",
+unit:"pieza",
+initial:18,
+min:15,
+cost:27
+},
+
+{
+name:"Sal",
+unit:"kg",
+initial:1,
+min:0,
+cost:0
+},
+
+{
+name:"Vainilla 1L",
+unit:"pieza",
+initial:1,
+min:0,
+cost:27
+}
+
+];
+
+
+/* =========================================================
+   BASE DE DATOS LOCAL
+========================================================= */
+
+const KEY =
+"luvafe_inventory_v1";
+
+
+let db = load();
+
+
+function load() {
+
+  try {
+
+    const data =
+      localStorage.getItem(KEY);
+
+    if(data) {
+
+      return JSON.parse(data);
+
+    }
+
+    return {
+
+      items:
+        BASE_ITEMS.map(item => ({
+
+          ...item,
+
+          id:
+            crypto.randomUUID(),
+
+          in:0,
+
+          out:0
+
+        })),
+
+      moves:[]
+
+    };
+
+  }
+
+  catch(error) {
+
+    return {
+
+      items:
+        BASE_ITEMS.map(item => ({
+
+          ...item,
+
+          id:
+            String(
+              Date.now()
+              +
+              Math.random()
+            ),
+
+          in:0,
+
+          out:0
+
+        })),
+
+      moves:[]
+
+    };
+
+  }
+
+}
+
+
+function save() {
+
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(db)
+  );
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+function esc(value) {
+
+  return String(value ?? "")
+    .replace(/[&<>"']/g, match => ({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+
+    }[match]));
+
+}
+
+
+function qty(value) {
+
+  return Number(value || 0);
+
+}
+
+
+function current(item) {
+
+  return (
+    qty(item.initial)
+    +
+    qty(item.in)
+    -
+    qty(item.out)
+  );
+
+}
+
+
+function value(item) {
+
+  return (
+    current(item)
+    *
+    qty(item.cost)
+  );
+
+}
+
+
+function money(number) {
+
+  return "$" +
+    Number(number || 0)
+      .toLocaleString(
+        "es-MX",
+        {
+          minimumFractionDigits:2,
+          maximumFractionDigits:2
+        }
+      );
+
+}
+
+
+function fmtDate(date) {
+
+  return new Date(date)
+    .toLocaleString(
+      "es-MX",
+      {
+        dateStyle:"short",
+        timeStyle:"short"
+      }
+    );
+
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+function go(id) {
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab =>
+      tab.classList.remove("active")
+    );
+
+
+  document
+    .querySelectorAll("nav button")
+    .forEach(button =>
+      button.classList.remove("active")
+    );
+
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+
+  document
+    .querySelector(
+      `[data-tab="${id}"]`
+    )
+    .classList.add("active");
+
+
+  if(id === "print") {
+
+    printMode("inventory");
+
+  }
+
+}
+
+
+document
+  .querySelectorAll("nav button")
+  .forEach(button => {
+
+    button.onclick = () =>
+      go(button.dataset.tab);
+
+  });
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard() {
+
+  const total =
+    db.items.length;
+
+
+  const buy =
+    db.items.filter(
+      item =>
+        current(item)
+        <=
+        qty(item.min)
+    ).length;
+
+
+  const inventoryValue =
+    db.items.reduce(
+      (sum,item) =>
+        sum + value(item),
+      0
+    );
+
+
+  const units =
+    db.items.reduce(
+      (sum,item) =>
+        sum + current(item),
+      0
+    );
+
+
+  document
+    .getElementById("kpis")
+    .innerHTML = [
+
+      [
+        "Materias primas",
+        total,
+        ""
+      ],
+
+      [
+        "Por comprar",
+        buy,
+        buy ? "buy" : ""
+      ],
+
+      [
+        "Valor inventario",
+        money(inventoryValue),
+        ""
+      ],
+
+      [
+        "Existencias",
+        units.toLocaleString("es-MX"),
+        ""
+      ]
+
+    ]
+    .map(item => `
+
+      <div class="card kpi">
+
+        <div class="label">
+          ${item[0]}
+        </div>
+
+        <div class="value ${item[2]}">
+          ${item[1]}
+        </div>
+
+      </div>
+
+    `)
+    .join("");
+
+
+  const list =
+    db.items
+      .filter(
+        item =>
+          current(item)
+          <=
+          qty(item.min)
+      )
+      .sort(
+        (a,b) =>
+          current(a)
+          -
+          current(b)
+      );
+
+
+  document
+    .getElementById("buyAlert")
+    .innerHTML = buy
+
+      ?
+
+      `<div class="alert">
+
+        <b>
+          ${buy} materia(s) requieren revisión.
+        </b>
+
+        El sistema las marca para compra
+        cuando el stock actual es igual
+        o menor al mínimo.
+
+      </div>`
+
+      :
+
+      `<div class="notice">
+
+        No hay materias por debajo
+        del mínimo configurado.
+
+      </div>`;
+
+
+  document
+    .getElementById("buyList")
+    .innerHTML =
+
+    list.length
+
+      ?
+
+      `
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Materia
+            </th>
+
+            <th>
+              Actual
+            </th>
+
+            <th>
+              Mínimo
+            </th>
+
+            <th>
+              Costo
+            </th>
+
+            <th>
+              Valor faltante aprox.
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${
+
+            list.map(item => `
+
+              <tr>
+
+                <td>
+                  ${esc(item.name)}
+                </td>
+
+                <td>
+                  ${current(item)}
+                  ${esc(item.unit)}
+                </td>
+
+                <td>
+                  ${item.min}
+                </td>
+
+                <td>
+                  ${money(item.cost)}
+                </td>
+
+                <td>
+                  ${
+                    money(
+                      Math.max(
+                        0,
+                        item.min
+                        -
+                        current(item)
+                      )
+                      *
+                      qty(item.cost)
+                    )
+                  }
+                </td>
+
+              </tr>
+
+            `).join("")
+
+          }
+
+        </tbody>
+
+      </table>
+
+      `
+
+      :
+
+      `<p class="muted">
+        No hay compras sugeridas.
+      </p>`;
+
+}
+
+
+/* =========================================================
+   INVENTARIO
+========================================================= */
+
+function renderInventory() {
+
+  const search =
+    (
+      document
+        .getElementById("invSearch")
+        ?.value
+      ||
+      ""
+    )
+    .toLowerCase();
+
+
+  const items =
+    db.items.filter(
+      item =>
+        item.name
+          .toLowerCase()
+          .includes(search)
+    );
+
+
+  document
+    .getElementById("invBody")
+    .innerHTML =
+
+    items.map(item => {
+
+      const stock =
+        current(item);
+
+      const needsBuy =
+        stock
+        <=
+        qty(item.min);
+
+
+      return `
+
+      <tr>
+
+        <td>
+
+          <input
+            value="${esc(item.name)}"
+            onchange="
+              editItem(
+                '${item.id}',
+                'name',
+                this.value
+              )
+            "
+          >
+
+        </td>
+
+
+        <td>
+
+          <select
+            onchange="
+              editItem(
+                '${item.id}',
+                'unit',
+                this.value
+              )
+            "
+          >
+
+            ${
+              [
+                "pieza",
+                "kg",
+                "g",
+                "L",
+                "ml",
+                "caja",
+                "paquete"
+              ]
+              .map(unit => `
+
+                <option
+                  ${
+                    item.unit === unit
+                    ? "selected"
+                    : ""
+                  }
+                >
+                  ${unit}
+                </option>
+
+              `)
+              .join("")
+            }
+
+          </select>
+
+        </td>
+
+
+        <td>
+
+          <input
+            type="number"
+            step=".01"
+            value="${item.initial}"
+            onchange="
+              editItem(
+                '${item.id}',
+                'initial',
+                this.value
+              )
+            "
+          >
+
+        </td>
+
+
+        <td>
+          ${qty(item.in)}
+        </td>
+
+
+        <td>
+          ${qty(item.out)}
+        </td>
+
+
+        <td>
+
+          <b>
+            ${stock}
+          </b>
+
+        </td>
+
+
+        <td>
+
+          <input
+            type="number"
+            step=".01"
+            value="${item.min}"
+            onchange="
+              editItem(
+                '${item.id}',
+                'min',
+                this.value
+              )
+            "
+          >
+
+        </td>
+
+
+        <td
+          class="status
+          ${needsBuy ? "buy" : "ok"}"
+        >
+
+          ${
+            needsBuy
+            ? "COMPRAR"
+            : "OK"
+          }
+
+        </td>
+
+
+        <td>
+
+          <input
+            type="number"
+            step=".01"
+            value="${item.cost}"
+            onchange="
+              editItem(
+                '${item.id}',
+                'cost',
+                this.value
+              )
+            "
+          >
+
+        </td>
+
+
+        <td>
+          ${money(value(item))}
+        </td>
+
+
+        <td>
+
+          <button
+            class="btn"
+            onclick="
+              delItem('${item.id}')
+            "
+          >
+            Eliminar
+          </button>
+
+        </td>
+
+      </tr>
+
+      `;
+
+    })
+    .join("");
+
+}
+
+
+function editItem(
+  id,
+  key,
+  value
+) {
+
+  const item =
+    db.items.find(
+      x =>
+        x.id === id
+    );
+
+
+  if(!item)
+    return;
+
+
+  item[key] =
+    (
+      key === "name"
+      ||
+      key === "unit"
+    )
+      ?
+      value
+      :
+      qty(value);
+
+
+  save();
+
+}
+
+
+function newItem() {
+
+  const name =
+    prompt(
+      "Nombre de la materia prima:"
+    );
+
+
+  if(!name)
+    return;
+
+
+  db.items.push({
+
+    id:
+      crypto.randomUUID(),
+
+    name:
+      name.trim(),
+
+    unit:
+      "pieza",
+
+    initial:0,
+
+    min:0,
+
+    cost:0,
+
+    in:0,
+
+    out:0
+
+  });
+
+
+  save();
+
+  go("inventory");
+
+}
+
+
+function delItem(id) {
+
+  const item =
+    db.items.find(
+      x =>
+        x.id === id
+    );
+
+
+  if(!item)
+    return;
+
+
+  if(
+    confirm(
+      `Eliminar "${item.name}"?`
+    )
+  ) {
+
+    db.items =
+      db.items.filter(
+        x =>
+          x.id !== id
+      );
+
+    save();
+
+  }
+
+}
+
+
+/* =========================================================
+   SELECTOR DE MATERIAS
+========================================================= */
+
+function populateSelect() {
+
+  const select =
+    document.getElementById(
+      "mItem"
+    );
+
+
+  if(!select)
+    return;
+
+
+  select.innerHTML =
+    db.items
+      .map(item => `
+
+        <option
+          value="${item.id}"
+        >
+          ${esc(item.name)}
+          (${esc(item.unit)})
+        </option>
+
+      `)
+      .join("");
+
+
+  document
+    .getElementById("mDate")
+    .value =
+      new Date(
+        Date.now()
+        -
+        new Date()
+          .getTimezoneOffset()
+        *
+        60000
+      )
+      .toISOString()
+      .slice(0,16);
+
+}
+
+
+/* =========================================================
+   MOVIMIENTOS
+========================================================= */
+
+function addMove() {
+
+  const itemId =
+    document
+      .getElementById("mItem")
+      .value;
+
+
+  const type =
+    document
+      .getElementById("mType")
+      .value;
+
+
+  const amount =
+    qty(
+      document
+        .getElementById("mQty")
+        .value
+    );
+
+
+  if(
+    !itemId
+    ||
+    amount <= 0
+  ) {
+
+    alert(
+      "Captura una cantidad mayor que cero."
+    );
+
+    return;
+
+  }
+
+
+  const item =
+    db.items.find(
+      x =>
+        x.id === itemId
+    );
+
+
+  if(
+    type === "salida"
+    &&
+    amount > current(item)
+  ) {
+
+    if(
+      !confirm(
+        `La salida supera el stock actual (${current(item)} ${item.unit}). ¿Registrar de todos modos?`
+      )
+    ) {
+
+      return;
+
+    }
+
+  }
+
+
+  if(type === "entrada") {
+
+    item.in += amount;
+
+  }
+
+  else if(type === "salida") {
+
+    item.out += amount;
+
+  }
+
+
+  const cost =
+    qty(
+      document
+        .getElementById("mCost")
+        .value
+    )
+    ||
+    item.cost;
+
+
+  if(
+    type === "entrada"
+    &&
+    cost > 0
+  ) {
+
+    item.cost = cost;
+
+  }
+
+
+  db.moves.unshift({
+
+    id:
+      crypto.randomUUID(),
+
+    date:
+      document
+        .getElementById("mDate")
+        .value
+      ||
+      new Date().toISOString(),
+
+    item:
+      itemId,
+
+    type,
+
+    qty:
+      amount,
+
+    cost,
+
+    note:
+      document
+        .getElementById("mNote")
+        .value
+        .trim()
+
+  });
+
+
+  clearMove();
+
+  save();
+
+  go("moves");
+
+}
+
+
+function clearMove() {
+
+  document
+    .getElementById("mQty")
+    .value = "";
+
+
+  document
+    .getElementById("mCost")
+    .value = "";
+
+
+  document
+    .getElementById("mNote")
+    .value = "";
+
+}
+
+
+/* =========================================================
+   HISTORIAL
+========================================================= */
+
+function renderMoves() {
+
+  document
+    .getElementById("movesBody")
+    .innerHTML =
+
+    db.moves
+      .map(move => {
+
+        const item =
+          db.items.find(
+            x =>
+              x.id === move.item
+          );
+
+
+        return `
+
+        <tr>
+
+          <td>
+            ${fmtDate(move.date)}
+          </td>
+
+          <td>
+            ${esc(
+              item?.name
+              ||
+              "Eliminada"
+            )}
+          </td>
+
+          <td>
+            ${move.type}
+          </td>
+
+          <td>
+
+            ${move.qty}
+            ${esc(
+              item?.unit
+              ||
+              ""
+            )}
+
+          </td>
+
+          <td>
+            ${money(move.cost)}
+          </td>
+
+          <td>
+            ${esc(move.note)}
+          </td>
+
+          <td>
+
+            <button
+              class="btn"
+              onclick="
+                delMove('${move.id}')
+              "
+            >
+              Eliminar
+            </button>
+
+          </td>
+
+        </tr>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+function delMove(id) {
+
+  const move =
+    db.moves.find(
+      x =>
+        x.id === id
+    );
+
+
+  if(!move)
+    return;
+
+
+  if(
+    confirm(
+      "Eliminar este movimiento y revertir su efecto en el stock?"
+    )
+  ) {
+
+    const item =
+      db.items.find(
+        x =>
+          x.id === move.item
+      );
+
+
+    if(item) {
+
+      if(
+        move.type === "entrada"
+      ) {
+
+        item.in -= move.qty;
+
+      }
+
+      else if(
+        move.type === "salida"
+      ) {
+
+        item.out -= move.qty;
+
+      }
+
+    }
+
+
+    db.moves =
+      db.moves.filter(
+        x =>
+          x.id !== id
+      );
+
+
+    save();
+
+  }
+
+}
+
+
+/* =========================================================
+   IMPRESIÓN
+========================================================= */
+
+function printMode(mode) {
+
+  const area =
+    document.getElementById(
+      "printArea"
+    );
+
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab =>
+      tab.classList.remove(
+        "print-active"
+      )
+    );
+
+
+  document
+    .getElementById("print")
+    .classList.add(
+      "print-active"
+    );
+
+
+  if(
+    mode === "inventory"
+  ) {
+
+    area.innerHTML = `
+
+      <h2>
+        Inventario actual
+      </h2>
+
+      <p>
+        Fecha:
+        ${new Date().toLocaleString("es-MX")}
+      </p>
+
+      ${inventoryTable()}
+
+    `;
+
+  }
+
+
+  if(
+    mode === "purchases"
+  ) {
+
+    const items =
+      db.items.filter(
+        item =>
+          current(item)
+          <=
+          qty(item.min)
+      );
+
+
+    area.innerHTML = `
+
+      <h2>
+        Lista de compras
+      </h2>
+
+      <p>
+        Fecha:
+        ${new Date().toLocaleString("es-MX")}
+      </p>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Materia
+            </th>
+
+            <th>
+              Unidad
+            </th>
+
+            <th>
+              Actual
+            </th>
+
+            <th>
+              Mínimo
+            </th>
+
+            <th>
+              Sugerido
+            </th>
+
+            <th>
+              Costo estimado
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${
+
+            items
+              .map(item => {
+
+                const amount =
+                  Math.max(
+                    0,
+                    item.min
+                    -
+                    current(item)
+                  );
+
+
+                return `
+
+                <tr>
+
+                  <td>
+                    ${esc(item.name)}
+                  </td>
+
+                  <td>
+                    ${item.unit}
+                  </td>
+
+                  <td>
+                    ${current(item)}
+                  </td>
+
+                  <td>
+                    ${item.min}
+                  </td>
+
+                  <td>
+                    ${amount}
+                  </td>
+
+                  <td>
+                    ${money(
+                      amount
+                      *
+                      item.cost
+                    )}
+                  </td>
+
+                </tr>
+
+                `;
+
+              })
+              .join("")
+
+          }
+
+        </tbody>
+
+      </table>
+
+    `;
+
+  }
+
+
+  if(
+    mode === "moves"
+  ) {
+
+    area.innerHTML = `
+
+      <h2>
+        Movimientos
+      </h2>
+
+      <p>
+        Fecha:
+        ${new Date().toLocaleString("es-MX")}
+      </p>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Fecha</th>
+            <th>Materia</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Costo</th>
+            <th>Notas</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${
+
+            db.moves
+              .map(move => {
+
+                const item =
+                  db.items.find(
+                    x =>
+                      x.id === move.item
+                  );
+
+
+                return `
+
+                <tr>
+
+                  <td>
+                    ${fmtDate(move.date)}
+                  </td>
+
+                  <td>
+                    ${esc(item?.name)}
+                  </td>
+
+                  <td>
+                    ${move.type}
+                  </td>
+
+                  <td>
+                    ${move.qty}
+                    ${item?.unit || ""}
+                  </td>
+
+                  <td>
+                    ${money(move.cost)}
+                  </td>
+
+                  <td>
+                    ${esc(move.note)}
+                  </td>
+
+                </tr>
+
+                `;
+
+              })
+              .join("")
+
+          }
+
+        </tbody>
+
+      </table>
+
+    `;
+
+  }
+
+}
+
+
+function inventoryTable() {
+
+  return `
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Materia prima
+          </th>
+
+          <th>
+            Unidad
+          </th>
+
+          <th>
+            Actual
+          </th>
+
+          <th>
+            Mínimo
+          </th>
+
+          <th>
+            Estado
+          </th>
+
+          <th>
+            Costo
+          </th>
+
+          <th>
+            Valor
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${
+
+          db.items
+            .map(item => `
+
+              <tr>
+
+                <td>
+                  ${esc(item.name)}
+                </td>
+
+                <td>
+                  ${esc(item.unit)}
+                </td>
+
+                <td>
+                  ${current(item)}
+                </td>
+
+                <td>
+                  ${item.min}
+                </td>
+
+                <td>
+
+                  ${
+                    current(item)
+                    <=
+                    item.min
+                    ?
+                    "COMPRAR"
+                    :
+                    "OK"
+                  }
+
+                </td>
+
+                <td>
+                  ${money(item.cost)}
+                </td>
+
+                <td>
+                  ${money(value(item))}
+                </td>
+
+              </tr>
+
+            `)
+            .join("")
+
+        }
+
+      </tbody>
+
+    </table>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RESPALDO
+========================================================= */
+
+function backup() {
+
+  const data = {
+
+    app:
+      "LUVAFE Inventario",
+
+    version:
+      1,
+
+    exportedAt:
+      new Date().toISOString(),
+
+    ...db
+
+  };
+
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  downloadBlob(
+    blob,
+    `LUVAFE_respaldo_${
+      new Date()
+        .toISOString()
+        .slice(0,10)
+    }.json`
+  );
+
+}
+
+
+/* =========================================================
+   RESTAURAR
+========================================================= */
+
+function restore(event) {
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file)
+    return;
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload = () => {
+
+    try {
+
+      const data =
+        JSON.parse(
+          reader.result
+        );
+
+
+      if(
+        !Array.isArray(data.items)
+        ||
+        !Array.isArray(data.moves)
+      ) {
+
+        throw new Error();
+
+      }
+
+
+      if(
+        confirm(
+          "Esto reemplazará los datos actuales. ¿Continuar?"
+        )
+      ) {
+
+        db = {
+
+          items:
+            data.items,
+
+          moves:
+            data.moves
+
+        };
+
+
+        save();
+
+
+        alert(
+          "Respaldo restaurado."
+        );
+
+      }
+
+    }
+
+    catch(error) {
+
+      alert(
+        "El archivo no es un respaldo válido de LUVAFE."
+      );
+
+    }
+
+  };
+
+
+  reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   RESTABLECER
+========================================================= */
+
+function resetAll() {
+
+  if(
+    confirm(
+      "Se eliminarán los datos locales actuales y se restaurará el catálogo inicial. Haz un respaldo antes si lo necesitas."
+    )
+  ) {
+
+    localStorage.removeItem(
+      KEY
+    );
+
+
+    db = load();
+
+
+    renderAll();
+
+  }
+
+}
+
+
+/* =========================================================
+   EXPORTAR CSV
+========================================================= */
+
+function exportCSV() {
+
+  const rows = [
+
+    [
+      "Materia prima",
+      "Unidad",
+      "Stock inicial",
+      "Entradas",
+      "Salidas",
+      "Stock actual",
+      "Stock mínimo",
+      "Estado",
+      "Costo unitario",
+      "Valor inventario"
+    ]
+
+  ];
+
+
+  db.items.forEach(item => {
+
+    rows.push([
+
+      item.name,
+
+      item.unit,
+
+      item.initial,
+
+      item.in,
+
+      item.out,
+
+      current(item),
+
+      item.min,
+
+      current(item)
+      <=
+      item.min
+      ?
+      "COMPRAR"
+      :
+      "OK",
+
+      item.cost,
+
+      value(item)
+
+    ]);
+
+  });
+
+
+  const csv =
+    rows
+      .map(row =>
+        row
+          .map(value =>
+            `"${String(value)
+              .replaceAll(
+                '"',
+                '""'
+              )}"`
+          )
+          .join(",")
+      )
+      .join("\n");
+
+
+  downloadBlob(
+
+    new Blob(
+      [csv],
+      {
+        type:
+          "text/csv;charset=utf-8"
+      }
+    ),
+
+    `LUVAFE_inventario_${
+      new Date()
+        .toISOString()
+        .slice(0,10)
+    }.csv`
+
+  );
+
+}
+
+
+/* =========================================================
+   DESCARGA
+========================================================= */
+
+function downloadBlob(
+  blob,
+  filename
+) {
+
+  const link =
+    document.createElement("a");
+
+
+  link.href =
+    URL.createObjectURL(blob);
+
+
+  link.download =
+    filename;
+
+
+  link.click();
+
+
+  setTimeout(
+    () =>
+      URL.revokeObjectURL(
+        link.href
+      ),
+    1000
+  );
+
+}
+
+
+/* =========================================================
+   RENDER GENERAL
+========================================================= */
+
+function renderAll() {
+
+  renderDashboard();
+
+  renderInventory();
+
+  renderMoves();
+
+  populateSelect();
+
+}
+
+
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
+
+if(
+  "serviceWorker"
+  in navigator
+) {
+
+  window.addEventListener(
+    "load",
+    () => {
+
+      navigator.serviceWorker
+        .register("sw.js")
+        .catch(
+          () => {}
+        );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+renderAll();
+
+</script>
+
+
+</body>
+
+</html>
